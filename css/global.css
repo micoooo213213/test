@@ -1,0 +1,321 @@
+/* ═══════════════════════════════════════════
+   HOTEL — Global Styles  /  css/global.css
+   iOS 26 Liquid Glass + Platinum
+═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Platinum palette */
+  --p100: #f4f2ee;
+  --p200: #e8e4db;
+  --p300: #cdc8bc;
+  --p400: #b0a898;
+  --p500: #8e8680;
+  --p600: #635e59;
+  --p700: #3a3632;
+  --p800: #18160f;
+
+  /* Gold */
+  --gold: #c9a96e;
+  --gold-l: #e2c99a;
+  --gold-d: #a07d45;
+  --gold-glow: rgba(201,169,110,0.4);
+
+  /* Glass */
+  --glass-white: rgba(255,255,255,0.08);
+  --glass-white-hover: rgba(255,255,255,0.13);
+  --glass-border: rgba(255,255,255,0.14);
+  --glass-border-gold: rgba(201,169,110,0.22);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 1.5px 0 rgba(255,255,255,0.06) inset;
+
+  /* Fonts */
+  --fd: 'Cormorant Garamond', serif;
+  --fu: 'Montserrat', sans-serif;
+
+  /* Easing */
+  --silk: cubic-bezier(0.16, 1, 0.3, 1);
+  --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --snap: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: #0b0a08;
+  color: var(--p100);
+  font-family: var(--fu);
+  overflow-x: hidden;
+  cursor: none;
+  /* Subtle platinum noise texture */
+  background-image: radial-gradient(ellipse 120% 80% at 60% 10%, rgba(201,169,110,0.04) 0%, transparent 55%),
+                    radial-gradient(ellipse 80% 60% at 10% 80%, rgba(180,170,155,0.03) 0%, transparent 50%);
+}
+
+/* ── CUSTOM CURSOR ── */
+#cur {
+  position: fixed; width: 8px; height: 8px;
+  background: var(--gold); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s var(--silk), height .2s var(--silk), opacity .2s;
+  mix-blend-mode: screen;
+}
+#cur-r {
+  position: fixed; width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,0.45);
+  border-radius: 50%; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width .35s var(--silk), height .35s var(--silk), border-color .25s;
+}
+
+/* ── NAVIGATION — liquid glass pill ── */
+nav {
+  position: fixed; top: 16px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  padding: 0 28px;
+  height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: 20px;
+  background: rgba(18,16,12,0.55);
+  backdrop-filter: blur(40px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4),
+              0 1px 0 rgba(255,255,255,0.08) inset,
+              0 -1px 0 rgba(0,0,0,0.3) inset;
+  transition: all .4s var(--silk);
+}
+
+nav.scrolled {
+  background: rgba(12,10,8,0.72);
+  backdrop-filter: blur(48px) saturate(2) brightness(1.05);
+  -webkit-backdrop-filter: blur(48px) saturate(2) brightness(1.05);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.55),
+              0 1px 0 rgba(255,255,255,0.07) inset;
+}
+
+.n-logo {
+  font-family: var(--fd);
+  font-size: 22px; font-weight: 300;
+  letter-spacing: .45em; color: var(--gold);
+  text-transform: uppercase; cursor: none; text-decoration: none;
+  text-shadow: 0 0 20px rgba(201,169,110,0.3);
+}
+
+.n-links { display: flex; gap: 28px; align-items: center; }
+
+.n-link {
+  font-size: 8.5px; letter-spacing: .26em; font-weight: 400;
+  color: var(--p400); text-transform: uppercase;
+  text-decoration: none; cursor: none; position: relative;
+  transition: color .25s; background: none; border: none;
+  font-family: var(--fu); padding: 4px 0;
+}
+.n-link::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 100%;
+  height: 1px; background: var(--gold); border-radius: 1px;
+  transition: right .3s var(--silk);
+}
+.n-link:hover, .n-link.active { color: var(--gold); }
+.n-link:hover::after, .n-link.active::after { right: 0; }
+
+/* Reserve button — glass pill */
+.n-btn {
+  font-size: 8px; letter-spacing: .28em; font-weight: 500;
+  color: var(--p800); text-transform: uppercase;
+  text-decoration: none; cursor: none;
+  background: var(--gold);
+  padding: 9px 20px; border: none; border-radius: 12px;
+  transition: transform .25s var(--bounce), box-shadow .3s, background .2s;
+  font-family: var(--fu);
+  box-shadow: 0 2px 12px rgba(201,169,110,0.35),
+              0 1px 0 rgba(255,255,255,0.25) inset;
+}
+.n-btn:hover {
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 6px 24px var(--gold-glow),
+              0 1px 0 rgba(255,255,255,0.3) inset;
+  background: var(--gold-l);
+}
+
+/* ── PAGE HERO (shared by about/stay/contact/ent) ── */
+.pg-hero {
+  height: 58vh; min-height: 360px;
+  position: relative;
+  display: flex; align-items: flex-end;
+  padding: 0 56px 72px;
+  overflow: hidden;
+}
+.pg-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #080706 0%, #1a1610 55%, #0b0a08 100%);
+}
+.pg-grid {
+  position: absolute; inset: 0; opacity: .035;
+  background-image:
+    linear-gradient(var(--p300) 1px, transparent 1px),
+    linear-gradient(90deg, var(--p300) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.pg-con { position: relative; z-index: 2; }
+
+.pg-eye {
+  font-size: 8px; letter-spacing: .55em; color: var(--gold);
+  text-transform: uppercase; font-weight: 400; margin-bottom: 18px;
+  opacity: .8;
+}
+.pg-title {
+  font-family: var(--fd);
+  font-size: clamp(52px, 7.5vw, 96px);
+  font-weight: 300; color: var(--p100);
+  letter-spacing: .04em; line-height: .92;
+}
+.pg-title em { font-style: italic; color: var(--gold); }
+
+/* ── SECTION LABELS ── */
+.s-label {
+  font-size: 8px; letter-spacing: .55em; color: var(--gold);
+  text-transform: uppercase; font-weight: 400; margin-bottom: 18px;
+}
+.s-title {
+  font-family: var(--fd);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-weight: 300; color: var(--p100);
+  line-height: 1.05; margin-bottom: 56px;
+}
+.s-title em { font-style: italic; color: var(--gold); }
+
+/* ── SCROLL REVEAL ── */
+.rv {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .9s var(--silk), transform .9s var(--silk);
+}
+.rv.in { opacity: 1; transform: translateY(0); }
+
+/* ── DECO LINE ── */
+.deco-l {
+  width: 48px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 36px auto;
+}
+
+/* ── GLASS CARD UTILITY ── */
+.glass {
+  background: var(--glass-white);
+  backdrop-filter: blur(32px) saturate(1.5);
+  -webkit-backdrop-filter: blur(32px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 80px 56px 40px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: #07060504;
+  position: relative;
+}
+footer::before {
+  content: '';
+  position: absolute; top: 0; left: 56px; right: 56px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.2), transparent);
+}
+.ft-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px; margin-bottom: 64px;
+}
+.ft-logo {
+  font-family: var(--fd); font-size: 26px; font-weight: 300;
+  letter-spacing: .35em; color: var(--gold); margin-bottom: 18px;
+}
+.ft-tag {
+  font-size: 11px; line-height: 2; color: var(--p600);
+  font-weight: 300; max-width: 220px;
+}
+.ft-ht {
+  font-size: 8px; letter-spacing: .35em; color: var(--p500);
+  text-transform: uppercase; font-weight: 500; margin-bottom: 22px;
+}
+.ft-lk {
+  display: block; font-size: 11px; color: var(--p700);
+  text-decoration: none; margin-bottom: 11px; cursor: none;
+  transition: color .25s; background: none; border: none;
+  text-align: left; font-family: var(--fu);
+}
+.ft-lk:hover { color: var(--gold); }
+.ft-bot {
+  border-top: 1px solid rgba(255,255,255,0.04);
+  padding-top: 28px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ft-cp { font-size: 9px; color: var(--p700); letter-spacing: .12em; }
+
+/* ── CONFIRM MODAL ── */
+.conf-ov {
+  position: fixed; inset: 0;
+  background: rgba(8,7,5,0.88);
+  backdrop-filter: blur(24px);
+  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .4s;
+}
+.conf-ov.open { opacity: 1; pointer-events: all; }
+.conf-box {
+  background: rgba(28,24,18,0.92);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: 24px;
+  padding: 56px; max-width: 480px; text-align: center;
+  transform: scale(0.92) translateY(24px);
+  transition: transform .5s var(--bounce);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset,
+              0 32px 80px rgba(0,0,0,0.6);
+}
+.conf-ov.open .conf-box { transform: scale(1) translateY(0); }
+.conf-icon {
+  width: 60px; height: 60px;
+  border: 1px solid var(--gold); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px; font-size: 22px;
+  background: rgba(201,169,110,0.06);
+}
+.conf-title {
+  font-family: var(--fd); font-size: 30px; font-weight: 300;
+  color: var(--p100); margin-bottom: 14px;
+}
+.conf-title em { font-style: italic; color: var(--gold); }
+.conf-body {
+  font-size: 11px; line-height: 2; color: var(--p500);
+  font-weight: 300; margin-bottom: 28px;
+}
+.conf-close {
+  font-size: 8.5px; letter-spacing: .3em; font-weight: 500;
+  color: var(--p800); text-transform: uppercase;
+  background: var(--gold); padding: 13px 38px;
+  border: none; border-radius: 10px; cursor: none;
+  transition: background .25s, box-shadow .25s;
+  font-family: var(--fu);
+}
+.conf-close:hover { background: var(--gold-l); box-shadow: 0 4px 20px var(--gold-glow); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { width: calc(100% - 32px); padding: 0 20px; }
+  .n-links { gap: 16px; }
+  .ft-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .pg-hero { padding: 0 28px 56px; }
+  footer { padding: 64px 28px 32px; }
+  footer::before { left: 28px; right: 28px; }
+}
+@media (max-width: 640px) {
+  nav { top: 12px; border-radius: 16px; }
+  .n-links { gap: 12px; }
+  .n-link:not(.n-link.active) { display: none; }
+  .ft-grid { grid-template-columns: 1fr; gap: 32px; }
+}

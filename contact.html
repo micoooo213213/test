@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOTEL &mdash; Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<nav>
+  <a class="n-logo" href="index.html">HOTEL</a>
+  <div class="n-links">
+    <a class="n-link" href="index.html">Home</a>
+    <a class="n-link" href="about.html">Story</a>
+    <a class="n-link" href="stay.html">Stay</a>
+    <a class="n-link active" href="contact.html">Contact</a>
+    <a class="n-link" href="entertainment.html">Entertainment</a>
+    <a class="n-btn" href="stay.html">Reserve</a>
+  </div>
+</nav>
+
+<div class="pg-hero" style="background:linear-gradient(160deg,#090807 0%,#161210 60%,#0e0c09 100%)">
+  <div class="pg-grid"></div>
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(201,169,110,0.04) 0%,transparent 60%)"></div>
+  <div class="pg-con">
+    <div class="pg-eye">Reach Out</div>
+    <h1 class="pg-title">We Are<br><em>Listening</em></h1>
+  </div>
+</div>
+
+<div class="contact-wrap">
+  <div class="contact-info rv">
+    <p class="contact-intro">Every enquiry is read personally by our team. Whether you are planning a stay, arranging a private event, or simply wish to know us better &mdash; we respond within the hour.</p>
+    <div class="contact-blocks">
+      <div class="contact-block"><div class="cb-label">Address</div><div class="cb-value">Quai Wilson 14<br>Geneva, Switzerland</div><div class="cb-sub">CH-1201</div></div>
+      <div class="contact-block"><div class="cb-label">Telephone</div><div class="cb-value">+41 22 800 0000</div><div class="cb-sub">Available 24 hours, seven days</div></div>
+      <div class="contact-block"><div class="cb-label">Reservations</div><div class="cb-value">michael.gloeb@yahoo.com</div><div class="cb-sub">Direct line to our concierge team</div></div>
+      <div class="contact-block"><div class="cb-label">Response Time</div><div class="cb-value">Within one hour</div><div class="cb-sub">During standard business hours in CET</div></div>
+    </div>
+  </div>
+  <div class="contact-form-wrap rv">
+    <div class="form-glass">
+      <div class="form-heading">Send a<br><em>Message</em></div>
+      <div class="form-sub">Your enquiry goes directly to our team</div>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">&#10022;</div>
+        <div class="success-title">Message <em>Sent</em></div>
+        <div class="success-body">Thank you for reaching out. A member of our team will respond within the hour.</div>
+        <button class="send-again" id="sendAgain">Send Another Message</button>
+      </div>
+      <form id="contactForm" novalidate>
+        <div id="formFields">
+          <div class="field-row">
+            <div class="field"><label class="f-label" for="fname">First Name</label><input id="fname" name="name" type="text" class="f-inp" placeholder="Elise" required autocomplete="given-name"><div class="f-error"></div></div>
+            <div class="field"><label class="f-label" for="femail">Email Address</label><input id="femail" name="email" type="email" class="f-inp" placeholder="e.montclair@example.com" required autocomplete="email"><div class="f-error"></div></div>
+          </div>
+          <div class="field"><label class="f-label" for="fphone">Phone <span style="opacity:.5;font-size:.8em">(optional)</span></label><input id="fphone" name="phone" type="tel" class="f-inp" placeholder="+41 00 000 0000"><div class="f-error"></div></div>
+          <div class="field"><label class="f-label" for="fsubject">Subject</label>
+            <select id="fsubject" name="subject" class="f-sel" required>
+              <option value="" disabled selected>Select a topic&hellip;</option>
+              <option>Room Reservation Enquiry</option>
+              <option>Private Event or Celebration</option>
+              <option>Spa &amp; Wellness Booking</option>
+              <option>Private Dining Reservation</option>
+              <option>General Enquiry</option>
+              <option>Press &amp; Media</option>
+              <option>Other</option>
+            </select><div class="f-error"></div>
+          </div>
+          <div class="field"><label class="f-label" for="fmessage">Message</label><textarea id="fmessage" name="message" class="f-ta" placeholder="Tell us how we may assist you&hellip;" required></textarea><div class="f-error"></div></div>
+          <input type="hidden" name="_replyto" id="replyField">
+          <input type="hidden" name="_subject" value="New enquiry from HOTEL website">
+          <input type="text" name="_gotcha" style="display:none">
+          <button type="submit" class="send-btn" id="sendBtn">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo">HOTEL</div>
+      <p class="ft-tag">A sanctuary of platinum calm above the Geneva lakeshore. Privately held since 2012.</p>
+    </div>
+    <div>
+      <div class="ft-ht">Navigate</div>
+      <a class="ft-lk" href="index.html">Home</a>
+      <a class="ft-lk" href="about.html">Our Story</a>
+      <a class="ft-lk" href="stay.html">Stay</a>
+      <a class="ft-lk" href="contact.html">Contact</a>
+      <a class="ft-lk" href="entertainment.html">Entertainment</a>
+    </div>
+    <div>
+      <div class="ft-ht">Services</div>
+      <a class="ft-lk" href="#">Spa &amp; Thermal</a>
+      <a class="ft-lk" href="#">Private Dining</a>
+      <a class="ft-lk" href="#">Events</a>
+    </div>
+    <div>
+      <div class="ft-ht">Contact</div>
+      <a class="ft-lk" href="tel:+41228000000">+41 22 800 0000</a>
+      <a class="ft-lk" href="mailto:&#109;&#105;&#99;&#104;&#97;&#101;&#108;&#46;&#103;&#108;&#111;&#101;&#98;&#64;&#121;&#97;&#104;&#111;&#111;&#46;&#99;&#111;&#109;">&#109;&#105;&#99;&#104;&#97;&#101;&#108;&#46;&#103;&#108;&#111;&#101;&#98;&#64;&#121;&#97;&#104;&#111;&#111;&#46;&#99;&#111;&#109;</a>
+      <a class="ft-lk" href="#">Quai Wilson 14, Geneva</a>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <div class="ft-cp">&copy; 2026 HOTEL Group &middot; All Rights Reserved</div>
+    <div class="ft-cp">Privacy &middot; Terms &middot; Cookies</div>
+  </div>
+</footer>
+<script>
+  document.getElementById('femail')?.addEventListener('input', function() {
+    document.getElementById('replyField').value = this.value;
+  });
+</script>
+<script src="js/global.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

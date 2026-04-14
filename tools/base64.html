@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOTEL — Game Base64 Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9a96e; --gold-l: #e8d4a8;
+      --p100: #f8f6f2; --p400: #b8b0a0; --p500: #9a9088; --p600: #6e6660; --p800: #1a1714;
+      --fd: 'Cormorant Garamond', serif; --fu: 'Montserrat', sans-serif;
+    }
+    html, body { height: 100%; background: #0e0c09; color: var(--p100); font-family: var(--fu); }
+
+    .page {
+      min-height: 100vh;
+      padding: 60px 48px 80px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 9px; letter-spacing: .3em; color: var(--p600);
+      text-decoration: none; text-transform: uppercase;
+      transition: color .2s; margin-bottom: 48px;
+    }
+    .back:hover { color: var(--gold); }
+
+    h1 {
+      font-family: var(--fd);
+      font-size: 52px; font-weight: 300; line-height: .95;
+      color: var(--p100); margin-bottom: 12px;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+
+    .subtitle {
+      font-size: 10px; letter-spacing: .3em; color: var(--p600);
+      text-transform: uppercase; margin-bottom: 56px;
+    }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 40px; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 24px;
+      align-items: start;
+    }
+    .step-num {
+      font-family: var(--fd); font-size: 42px; font-weight: 300;
+      color: rgba(201,169,110,.25); line-height: 1; padding-top: 4px;
+    }
+    .step-body {}
+    .step-title {
+      font-size: 13px; font-weight: 500; color: var(--p100);
+      letter-spacing: .08em; margin-bottom: 10px;
+    }
+    .step-desc {
+      font-size: 11px; line-height: 2; color: var(--p500); font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .step-desc code {
+      font-family: monospace; font-size: 11px;
+      background: rgba(201,169,110,.08); color: var(--gold);
+      padding: 2px 7px; border: .5px solid rgba(201,169,110,.15);
+    }
+
+    /* ── INPUTS ── */
+    .f-label {
+      font-size: 7px; letter-spacing: .4em; color: var(--gold);
+      text-transform: uppercase; font-weight: 500;
+      display: block; margin-bottom: 10px;
+    }
+    .f-inp {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,.04);
+      border: .5px solid rgba(255,255,255,.12);
+      color: var(--p100); font-family: var(--fu);
+      font-size: 12px; font-weight: 300; outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .f-inp:focus {
+      border-color: rgba(201,169,110,.5);
+      box-shadow: 0 0 0 1px rgba(201,169,110,.1);
+    }
+    .f-inp::placeholder { color: var(--p600); }
+
+    .btn {
+      font-family: var(--fu); font-size: 9px; letter-spacing: .3em;
+      font-weight: 500; color: var(--p800); text-transform: uppercase;
+      background: var(--gold); padding: 13px 32px;
+      border: none; cursor: pointer; margin-top: 14px;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .btn::before {
+      content:''; position:absolute; top:0; left:-100%; right:100%; bottom:0;
+      background:rgba(255,255,255,.15); transform:skewX(-20deg);
+      transition: left .4s, right .4s;
+    }
+    .btn:hover::before { left:-20%; right:-20%; }
+    .btn:hover { background: var(--gold-l); box-shadow: 0 8px 28px rgba(201,169,110,.35); transform: translateY(-1px); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* ── OUTPUT ── */
+    .output-wrap {
+      margin-top: 16px;
+      display: none;
+    }
+    .output-wrap.show { display: block; }
+
+    .output-box {
+      position: relative;
+      background: rgba(255,255,255,.03);
+      border: .5px solid rgba(201,169,110,.2);
+      padding: 16px 16px 16px 16px;
+    }
+    .output-box::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,.4), transparent);
+    }
+
+    .output-label {
+      font-size: 7px; letter-spacing: .4em; color: var(--gold);
+      text-transform: uppercase; font-weight: 500; margin-bottom: 10px;
+    }
+
+    .output-text {
+      font-family: monospace; font-size: 10px; color: rgba(201,169,110,.7);
+      word-break: break-all; line-height: 1.6; max-height: 120px;
+      overflow: hidden; text-overflow: ellipsis;
+      /* show just a preview */
+      display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+    }
+
+    .copy-btn {
+      font-family: var(--fu); font-size: 8px; letter-spacing: .3em;
+      font-weight: 500; color: var(--p800); text-transform: uppercase;
+      background: var(--gold); padding: 10px 24px;
+      border: none; cursor: pointer; margin-top: 14px;
+      transition: background .2s;
+    }
+    .copy-btn:hover { background: var(--gold-l); }
+
+    .copied-msg {
+      display: none; font-size: 9px; letter-spacing: .2em;
+      color: #7dc98f; text-transform: uppercase; margin-top: 10px;
+    }
+    .copied-msg.show { display: block; }
+
+    .err-msg {
+      display: none; font-size: 10px; color: #c97070;
+      margin-top: 12px; line-height: 1.8;
+    }
+    .err-msg.show { display: block; }
+
+    /* ── DIVIDER ── */
+    .divider { height: .5px; background: rgba(255,255,255,.06); margin: 48px 0; }
+
+    /* ── RESULT SNIPPET ── */
+    .snippet-wrap { display: none; margin-top: 24px; }
+    .snippet-wrap.show { display: block; }
+    .snippet-label {
+      font-size: 7px; letter-spacing: .4em; color: var(--gold);
+      text-transform: uppercase; font-weight: 500; margin-bottom: 12px;
+    }
+    .snippet {
+      background: rgba(0,0,0,.4); border: .5px solid rgba(255,255,255,.08);
+      padding: 20px; font-family: monospace; font-size: 10px;
+      color: rgba(255,255,255,.6); line-height: 1.9; overflow-x: auto;
+      white-space: pre;
+    }
+    .copy-snippet {
+      font-family: var(--fu); font-size: 8px; letter-spacing: .3em;
+      font-weight: 500; color: var(--p800); text-transform: uppercase;
+      background: rgba(201,169,110,.7); padding: 9px 22px;
+      border: none; cursor: pointer; margin-top: 12px;
+      transition: background .2s;
+    }
+    .copy-snippet:hover { background: var(--gold); }
+    .copied2 { display:none; font-size:9px; color:#7dc98f; letter-spacing:.2em; text-transform:uppercase; margin-top:8px; }
+    .copied2.show { display:block; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back" href="../entertainment.html">&#8592; Back to Entertainment</a>
+
+  <h1>Game<br><em>Base64</em><br>Generator</h1>
+  <div class="subtitle">Generate card code for entertainment.html — no console needed</div>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Paste the jsDelivr URL of the game's index.html</div>
+        <div class="step-desc">
+          Format: <code>https://cdn.jsdelivr.net/gh/USERNAME/REPO@BRANCH/FOLDER/index.html</code><br>
+          Example: <code>https://cdn.jsdelivr.net/gh/gn-math/assets@main/113/index.html</code>
+        </div>
+        <label class="f-label" for="urlInput">jsDelivr index.html URL</label>
+        <input class="f-inp" id="urlInput" type="url"
+               placeholder="https://cdn.jsdelivr.net/gh/...">
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Game name and box art URL</div>
+        <div class="step-desc">
+          The box art can also be a jsDelivr URL — e.g.
+          <code>https://cdn.jsdelivr.net/gh/USERNAME/REPO@BRANCH/FOLDER/boxart.png</code>
+        </div>
+        <label class="f-label" for="nameInput">Game Name</label>
+        <input class="f-inp" id="nameInput" type="text"
+               placeholder="Subway Surfers" style="margin-bottom:14px">
+        <label class="f-label" for="tagInput">Genre Tag</label>
+        <input class="f-inp" id="tagInput" type="text"
+               placeholder="Arcade" style="margin-bottom:14px">
+        <label class="f-label" for="descInput">Short Description (for search)</label>
+        <input class="f-inp" id="descInput" type="text"
+               placeholder="Run and dodge through the subway." style="margin-bottom:14px">
+        <label class="f-label" for="artInput">Box Art URL</label>
+        <input class="f-inp" id="artInput" type="url"
+               placeholder="https://cdn.jsdelivr.net/gh/.../boxart.png">
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Generate the card code</div>
+        <div class="step-desc">
+          Click Generate. The tool fetches the game's index.html,
+          encodes it as base64, and builds the complete card HTML
+          ready to paste into <code>entertainment.html</code>.
+        </div>
+        <button class="btn" id="genBtn" onclick="generate()">Generate Card Code</button>
+        <div class="err-msg" id="errMsg"></div>
+      </div>
+    </div>
+
+  </div><!-- /steps -->
+
+  <div class="divider"></div>
+
+  <!-- OUTPUT -->
+  <div class="snippet-wrap" id="snippetWrap">
+    <div class="snippet-label">Paste this into the games-grid in entertainment.html</div>
+    <div class="snippet" id="snippetBox"></div>
+    <button class="copy-snippet" onclick="copySnippet()">Copy Card Code</button>
+    <div class="copied2" id="copied2">&#10003; Copied to clipboard!</div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+async function generate() {
+  var url     = document.getElementById('urlInput').value.trim();
+  var name    = document.getElementById('nameInput').value.trim() || 'Game';
+  var tag     = document.getElementById('tagInput').value.trim()  || 'Game';
+  var desc    = document.getElementById('descInput').value.trim() || '';
+  var art     = document.getElementById('artInput').value.trim()  || '';
+  var errEl   = document.getElementById('errMsg');
+  var btn     = document.getElementById('genBtn');
+  var snipWrap = document.getElementById('snippetWrap');
+
+  errEl.className = 'err-msg';
+  snipWrap.className = 'snippet-wrap';
+
+  if (!url) {
+    errEl.textContent = 'Please paste a jsDelivr URL first.';
+    errEl.className = 'err-msg show';
+    return;
+  }
+
+  if (!url.includes('cdn.jsdelivr.net') && !url.includes('raw.githubusercontent.com')) {
+    errEl.textContent = 'URL should be a jsDelivr or GitHub raw URL.';
+    errEl.className = 'err-msg show';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Fetching…';
+
+  try {
+    var res = await fetch(url);
+    if (!res.ok) throw new Error('Server returned ' + res.status + '. Check the URL is correct.');
+    var html = await res.text();
+
+    /* Work out the base href — the folder containing index.html */
+    var baseHref = url.substring(0, url.lastIndexOf('/') + 1);
+
+    /* Inject <base href> if missing */
+    if (html.indexOf('<base') === -1) {
+      html = html.replace(/(<head[^>]*>)/i, '$1\n  <base href="' + baseHref + '">');
+      if (html.indexOf('<base') === -1) {
+        html = '<!DOCTYPE html><html><head><base href="' + baseHref + '"></head><body>' + html + '</body></html>';
+      }
+    }
+
+    /* Encode */
+    var b64 = btoa(unescape(encodeURIComponent(html)));
+
+    /* Build the art img tag */
+    var imgSrc = art || '';
+    var imgTag = '<img src="' + escHTML(imgSrc) + '"\n             alt="' + escHTML(name) + '"\n             onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+
+    /* Build full card snippet */
+    var snippet =
+'<article class="game-card"\n' +
+'         data-base64="' + b64 + '"\n' +
+'         data-base="' + escHTML(baseHref) + '"\n' +
+'         data-name="' + escHTML(name) + '"\n' +
+'         onclick="openGame(this)">\n' +
+'  <div class="game-thumb">\n' +
+'    ' + imgTag + '\n' +
+'    <div class="no-art"><div class="no-art-icon">&#127918;</div><div class="no-art-text">No Art</div></div>\n' +
+'  </div>\n' +
+'  <div class="game-tag">' + escHTML(tag) + '</div>\n' +
+'  <div class="game-desc">' + escHTML(desc) + '</div>\n' +
+'  <div class="game-label">' + escHTML(name) + '</div>\n' +
+'</article>';
+
+    document.getElementById('snippetBox').textContent = snippet;
+    snipWrap.className = 'snippet-wrap show';
+    btn.textContent = 'Generate Card Code';
+    btn.disabled = false;
+
+  } catch(e) {
+    errEl.textContent = 'Error: ' + e.message;
+    errEl.className = 'err-msg show';
+    btn.textContent = 'Generate Card Code';
+    btn.disabled = false;
+  }
+}
+
+function copySnippet() {
+  var text = document.getElementById('snippetBox').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var el = document.getElementById('copied2');
+    el.className = 'copied2 show';
+    setTimeout(function() { el.className = 'copied2'; }, 2500);
+  });
+}
+
+function escHTML(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/"/g,'&quot;')
+    .replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>

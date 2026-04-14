@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════
+   HOTEL — Stay Page  /  css/stay.css
+═══════════════════════════════════════════ */
+
+.rooms-s { padding: 88px 56px; }
+
+.r-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 3px; margin-top: 36px;
+}
+
+/* Glass room card */
+.r-card {
+  overflow: hidden; cursor: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  transition: transform .5s var(--silk), box-shadow .5s, border-color .4s;
+  backdrop-filter: blur(16px);
+  position: relative;
+}
+.r-card::before {
+  content:''; position:absolute; top:0; left:0; right:100%; height:1.5px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-l));
+  z-index:2; border-radius:20px 20px 0 0;
+  transition: right .55s var(--silk);
+}
+.r-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6),
+              0 1px 0 rgba(255,255,255,0.08) inset;
+  border-color: rgba(201,169,110,0.2);
+}
+.r-card:hover::before { right: 0; }
+
+.r-img { height: 290px; overflow: hidden; position: relative; border-radius: 20px 20px 0 0; }
+.r-svg {
+  width: 100%; height: 100%; display: block;
+  transition: transform .75s var(--silk);
+}
+.r-card:hover .r-svg { transform: scale(1.05); }
+
+.r-info { padding: 34px; }
+.r-cat { font-size: 7.5px; letter-spacing: .45em; color: var(--gold); text-transform: uppercase; font-weight: 400; margin-bottom: 10px; }
+.r-name { font-family: var(--fd); font-size: 29px; font-weight: 300; color: var(--p100); letter-spacing: .06em; margin-bottom: 12px; }
+.r-desc { font-size: 11px; line-height: 2; color: var(--p500); font-weight: 300; margin-bottom: 22px; }
+
+.r-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 22px; }
+.p-from  { font-size: 8.5px; color: var(--p600); letter-spacing: .2em; }
+.p-num   { font-family: var(--fd); font-size: 34px; font-weight: 300; color: var(--gold); }
+.p-night { font-size: 8.5px; color: var(--p600); }
+
+.r-feats { display: flex; gap: 10px; margin-bottom: 26px; flex-wrap: wrap; }
+.r-feat  {
+  font-size: 7.5px; letter-spacing: .15em; color: var(--p500);
+  text-transform: uppercase; padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px; background: rgba(255,255,255,0.03);
+}
+
+.btn-bk {
+  width: 100%; font-size: 8.5px; letter-spacing: .32em; font-weight: 500;
+  color: var(--p800); text-transform: uppercase;
+  background: var(--gold); padding: 14px; border: none;
+  border-radius: 12px; cursor: none;
+  transition: background .25s, box-shadow .3s, transform .25s var(--bounce);
+  font-family: var(--fu);
+  box-shadow: 0 3px 14px rgba(201,169,110,0.3), 0 1px 0 rgba(255,255,255,0.2) inset;
+}
+.btn-bk:hover {
+  background: var(--gold-l);
+  box-shadow: 0 8px 32px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.3) inset;
+  transform: translateY(-2px);
+}
+
+/* ── BOOKING FORM ── */
+.book-s {
+  padding: 88px 56px;
+  background: linear-gradient(135deg, #080706, #14110e, #0b0a08);
+}
+
+/* Liquid glass booking panel */
+.book-glass {
+  background: rgba(255,255,255,0.055);
+  backdrop-filter: blur(48px) saturate(1.6);
+  -webkit-backdrop-filter: blur(48px) saturate(1.6);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 28px;
+  padding: 68px;
+  position: relative; overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(201,169,110,0.08) inset,
+    0 48px 96px rgba(0,0,0,0.5),
+    0 2px 0 rgba(255,255,255,0.07) inset;
+}
+.book-glass::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), transparent);
+}
+.book-glass::after {
+  content:''; position:absolute; bottom:0; right:0;
+  width:200px; height:200px;
+  background: radial-gradient(circle at bottom right, rgba(201,169,110,0.04), transparent 70%);
+}
+
+.bk-title { font-family: var(--fd); font-size: clamp(30px,3vw,44px); font-weight: 300; color: var(--p100); margin-bottom: 8px; }
+.bk-title em { font-style: italic; color: var(--gold); }
+.bk-sub { font-size: 9px; letter-spacing: .22em; color: var(--p600); text-transform: uppercase; margin-bottom: 52px; }
+
+.f-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; margin-bottom: 22px; }
+.f-g2  { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+.f-label {
+  font-size: 7.5px; letter-spacing: .38em; color: var(--gold);
+  text-transform: uppercase; font-weight: 500;
+  display: block; margin-bottom: 10px;
+}
+.f-inp, .f-sel {
+  width: 100%; padding: 14px 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: var(--p200); font-family: var(--fu); font-size: 12px; font-weight: 300;
+  outline: none; cursor: none;
+  transition: border-color .3s, background .3s, box-shadow .3s;
+  -webkit-appearance: none;
+}
+.f-inp:focus, .f-sel:focus {
+  border-color: rgba(201,169,110,0.5);
+  background: rgba(201,169,110,0.04);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.08);
+}
+.f-inp::placeholder { color: var(--p700); }
+.f-sel option { background: #1a1714; color: var(--p200); }
+
+.sub-btn {
+  width: 100%; margin-top: 26px;
+  font-size: 9px; letter-spacing: .42em; font-weight: 500;
+  color: var(--p800); text-transform: uppercase;
+  background: var(--gold); padding: 18px; border: none;
+  border-radius: 14px; cursor: none;
+  position: relative; overflow: hidden;
+  transition: background .3s, box-shadow .4s, transform .25s var(--bounce);
+  font-family: var(--fu);
+  box-shadow: 0 4px 20px rgba(201,169,110,0.3), 0 1px 0 rgba(255,255,255,0.2) inset;
+}
+.sub-btn::before {
+  content:''; position:absolute; top:0; left:-100%; right:100%; bottom:0;
+  background: rgba(255,255,255,0.15); transform: skewX(-20deg);
+  transition: left .5s var(--silk), right .5s var(--silk);
+}
+.sub-btn:hover::before { left:-20%; right:-20%; }
+.sub-btn:hover {
+  background: var(--gold-l);
+  box-shadow: 0 12px 50px var(--gold-glow), 0 1px 0 rgba(255,255,255,0.3) inset;
+  transform: translateY(-2px);
+}
+
+@media(max-width:900px){
+  .r-grid { grid-template-columns: 1fr; }
+  .f-row, .f-g2 { grid-template-columns: 1fr; }
+  .rooms-s, .book-s { padding: 60px 24px; }
+  .book-glass { padding: 40px 24px; border-radius: 20px; }
+}

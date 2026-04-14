@@ -1,0 +1,71 @@
+/* ═══════════════════════════════════════════
+   HOTEL — About Page  /  css/about.css
+═══════════════════════════════════════════ */
+
+.ab-sec {
+  padding: 108px 56px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 88px; align-items: center;
+}
+.ab-label {
+  font-size: 7.5px; letter-spacing: .45em; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 22px;
+}
+.ab-h {
+  font-family: var(--fd); font-size: clamp(30px,3.8vw,48px);
+  font-weight: 300; color: var(--p100); line-height: 1.18; margin-bottom: 28px;
+}
+.ab-h em { font-style: italic; color: var(--p300); }
+.ab-body { font-size: 12px; line-height: 2.3; color: var(--p500); font-weight: 300; letter-spacing: .04em; }
+.ab-body p { margin-bottom: 20px; }
+
+.ab-vis { position: relative; height: 520px; overflow: hidden; border-radius: 20px; }
+
+/* ── STATS ── */
+.ab-stats {
+  padding: 0 56px 108px;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 3px;
+}
+.stat {
+  padding: 52px 36px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  text-align: center;
+  backdrop-filter: blur(12px);
+  transition: background .4s, border-color .4s;
+}
+.stat:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(201,169,110,0.18);
+}
+.stat-n {
+  font-family: var(--fd); font-size: 58px; font-weight: 300;
+  color: var(--gold); line-height: 1; margin-bottom: 12px;
+}
+.stat-l { font-size: 8.5px; letter-spacing: .32em; color: var(--p500); text-transform: uppercase; font-weight: 400; }
+
+/* ── VALUES ── */
+.vals {
+  padding: 0 56px 108px;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+}
+.val {
+  padding: 44px;
+  border-left: 1px solid rgba(201,169,110,0.15);
+  background: rgba(255,255,255,0.025);
+  border-radius: 0 16px 16px 0;
+  transition: border-color .3s, background .3s; cursor: none;
+}
+.val:hover {
+  border-color: rgba(201,169,110,0.5);
+  background: rgba(255,255,255,0.05);
+}
+.val-n { font-family: var(--fd); font-size: 13px; font-weight: 400; color: var(--gold); margin-bottom: 14px; letter-spacing: .12em; }
+.val-nm { font-family: var(--fd); font-size: 23px; font-weight: 300; color: var(--p100); margin-bottom: 13px; letter-spacing: .07em; }
+.val-d  { font-size: 11px; line-height: 2; color: var(--p500); font-weight: 300; }
+
+@media(max-width:900px){
+  .ab-sec    { grid-template-columns: 1fr; gap: 48px; padding: 64px 28px; }
+  .ab-stats  { grid-template-columns: repeat(2,1fr); padding: 0 28px 64px; }
+  .vals      { grid-template-columns: 1fr; padding: 0 28px 64px; }
+}

@@ -1,0 +1,32 @@
+HOW TO USE data-b64url FOR JSDELIVR GAMES
+==========================================
+
+STEP 1 — Get the base64 of your game's index.html
+---------------------------------------------------
+Open tools/base64.html in your browser.
+Paste the jsDelivr URL of the game's index.html.
+Click "Generate Card Code" BUT instead of copying
+the card, click "Download .b64 file" — this saves
+a small text file containing just the base64 string.
+
+STEP 2 — Upload the .b64 file to your GitHub repo
+--------------------------------------------------
+Put it anywhere in your repo, e.g.:
+  games/subway-surfers/index.b64
+
+Commit and push. jsDelivr will serve it at:
+  https://cdn.jsdelivr.net/gh/YOU/REPO@main/games/subway-surfers/index.b64
+
+STEP 3 — Use data-b64url in your card
+--------------------------------------
+Instead of pasting 67,000 characters, just write:
+
+  <article class="game-card"
+           data-b64url="https://cdn.jsdelivr.net/gh/YOU/REPO@main/games/subway-surfers/index.b64"
+           data-base="https://cdn.jsdelivr.net/gh/YOU/REPO@main/games/subway-surfers/"
+           data-name="Subway Surfers"
+           onclick="openGame(this)">
+
+The JS fetches the .b64 file, decodes it, injects
+<base href>, and opens it as a blob. Same result,
+card stays tiny.
